@@ -22,7 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 DEFAULT_PORT = 62910
 DOMAIN = 'maxcube'
 
-MAXCUBE_HANDLE = 'maxcube'
+DATA_KEY = 'maxcube'
 
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
@@ -36,6 +36,8 @@ def setup(hass, config):
     """Establish connection to MAX! Cube."""
     from maxcube.connection import MaxCubeConnection
     from maxcube.cube import MaxCube
+    if DATA_KEY not in hass.data:
+        hass.data[DATA_KEY] = {}
 
     host = config.get(DOMAIN).get(CONF_HOST)
     port = config.get(DOMAIN).get(CONF_PORT)
@@ -44,11 +46,9 @@ def setup(hass, config):
         cube = MaxCube(MaxCubeConnection(host, port))
     except timeout:
         _LOGGER.error("Connection to Max!Cube could not be established")
-        cube = None
         return False
 
-    hass.data[MAXCUBE_HANDLE] = MaxCubeHandle(cube)
-
+    hass.data[DATA_KEY][host] = MaxCubeHandle(cube)
     load_platform(hass, 'climate', DOMAIN)
     load_platform(hass, 'binary_sensor', DOMAIN)
 
