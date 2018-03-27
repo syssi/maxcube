@@ -19,7 +19,7 @@ DATA_KEY = 'maxcube'
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Iterate through all MAX! Devices and add window shutters."""
     devices = []
-    for cube in hass.data[DATA_KEY]:
+    for cube in hass.data[DATA_KEY].values():
         for device in cube.devices:
             name = "{} {}".format(
                 cube.room_by_id(device.room_id).name, device.name)
