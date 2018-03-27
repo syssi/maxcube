@@ -28,8 +28,8 @@ SUPPORT_FLAGS = SUPPORT_TARGET_TEMPERATURE | SUPPORT_OPERATION_MODE
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Iterate through all MAX! Devices and add thermostats."""
     devices = []
-    for cube in hass.data[DATA_KEY].values():
-        for device in cube.devices:
+    for handler in hass.data[DATA_KEY].values():
+        for device in handler.cube.devices:
             name = '{} {}'.format(
                 cube.room_by_id(device.room_id).name, device.name)
 
