@@ -20,7 +20,8 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     """Iterate through all MAX! Devices and add window shutters."""
     devices = []
     for handler in hass.data[DATA_KEY].values():
-        for device in handler.cube.devices:
+        cube = handler.cube
+        for device in cube.devices:
             name = "{} {}".format(
                 cube.room_by_id(device.room_id).name, device.name)
 
