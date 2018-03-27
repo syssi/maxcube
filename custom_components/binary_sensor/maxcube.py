@@ -7,10 +7,13 @@ https://home-assistant.io/components/maxcube/
 import logging
 
 from homeassistant.components.binary_sensor import BinarySensorDevice
-from homeassistant.components.maxcube import DATA_KEY
 from homeassistant.const import STATE_UNKNOWN
 
 _LOGGER = logging.getLogger(__name__)
+
+# FIXME: Should be replaced by
+# from homeassistant.components.maxcube import DATA_KEY
+DATA_KEY = 'maxcube'
 
 
 def setup_platform(hass, config, add_devices, discovery_info=None):

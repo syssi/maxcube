@@ -10,10 +10,13 @@ import logging
 from homeassistant.components.climate import (
     ClimateDevice, STATE_AUTO, SUPPORT_TARGET_TEMPERATURE,
     SUPPORT_OPERATION_MODE)
-from homeassistant.components.maxcube import DATA_KEY
 from homeassistant.const import TEMP_CELSIUS, ATTR_TEMPERATURE
 
 _LOGGER = logging.getLogger(__name__)
+
+# FIXME: Should be replaced by
+# from homeassistant.components.maxcube import DATA_KEY
+DATA_KEY = 'maxcube'
 
 STATE_MANUAL = 'manual'
 STATE_BOOST = 'boost'
