@@ -35,7 +35,8 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
                 cube.room_by_id(device.room_id).name, device.name)
 
             if cube.is_thermostat(device) or cube.is_wallthermostat(device):
-                devices.append(MaxCubeClimate(hass, device, name, device.rf_address))
+                devices.append(
+                    MaxCubeClimate(hass, handler, name, device.rf_address))
 
     if devices:
         add_devices(devices)
@@ -44,14 +45,14 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class MaxCubeClimate(ClimateDevice):
     """MAX! Cube ClimateDevice."""
 
-    def __init__(self, hass, device, name, rf_address):
+    def __init__(self, hass, handler, name, rf_address):
         """Initialize MAX! Cube ClimateDevice."""
         self._name = name
         self._unit_of_measurement = TEMP_CELSIUS
         self._operation_list = [STATE_AUTO, STATE_MANUAL, STATE_BOOST,
                                 STATE_VACATION]
         self._rf_address = rf_address
-        self._cubehandle = device
+        self._cubehandle = handler
 
     @property
     def supported_features(self):

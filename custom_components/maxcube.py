@@ -60,7 +60,7 @@ def setup(hass, config):
         try:
             cube = MaxCube(MaxCubeConnection(host, port))
             hass.data[DATA_KEY][host] = MaxCubeHandle(cube)
-        except timeout:
+        except timeout as ex:
             _LOGGER.error("Unable to connect to Max!Cube gateway: %s", str(ex))
             hass.components.persistent_notification.create(
                 'Error: {}<br />'
