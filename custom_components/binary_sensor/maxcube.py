@@ -9,11 +9,11 @@ import logging
 from homeassistant.components.binary_sensor import BinarySensorDevice
 from homeassistant.const import STATE_UNKNOWN
 
-_LOGGER = logging.getLogger(__name__)
-
 # FIXME: Should be replaced by
 # from homeassistant.components.maxcube import DATA_KEY
 DATA_KEY = 'maxcube'
+
+_LOGGER = logging.getLogger(__name__)
 
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
@@ -28,7 +28,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
             # Only add Window Shutters
             if cube.is_windowshutter(device):
                 devices.append(
-                    MaxCubeShutter(hass, handler, name, device.rf_address))
+                    MaxCubeShutter(handler, name, device.rf_address))
 
     if devices:
         add_devices(devices)
@@ -37,7 +37,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class MaxCubeShutter(BinarySensorDevice):
     """Representation of a MAX! Cube Binary Sensor device."""
 
-    def __init__(self, hass, handler, name, rf_address):
+    def __init__(self, handler, name, rf_address):
         """Initialize MAX! Cube BinarySensorDevice."""
         self._name = name
         self._sensor_type = 'window'

@@ -12,11 +12,11 @@ from homeassistant.components.climate import (
     SUPPORT_OPERATION_MODE)
 from homeassistant.const import TEMP_CELSIUS, ATTR_TEMPERATURE
 
-_LOGGER = logging.getLogger(__name__)
-
 # FIXME: Should be replaced by
 # from homeassistant.components.maxcube import DATA_KEY
 DATA_KEY = 'maxcube'
+
+_LOGGER = logging.getLogger(__name__)
 
 STATE_MANUAL = 'manual'
 STATE_BOOST = 'boost'
@@ -36,7 +36,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 
             if cube.is_thermostat(device) or cube.is_wallthermostat(device):
                 devices.append(
-                    MaxCubeClimate(hass, handler, name, device.rf_address))
+                    MaxCubeClimate(handler, name, device.rf_address))
 
     if devices:
         add_devices(devices)
@@ -45,7 +45,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class MaxCubeClimate(ClimateDevice):
     """MAX! Cube ClimateDevice."""
 
-    def __init__(self, hass, handler, name, rf_address):
+    def __init__(self, handler, name, rf_address):
         """Initialize MAX! Cube ClimateDevice."""
         self._name = name
         self._unit_of_measurement = TEMP_CELSIUS
